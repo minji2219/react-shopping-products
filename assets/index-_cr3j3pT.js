@@ -9305,7 +9305,11 @@ const ButtonSection = newStyled.div`
   display: flex;
   justify-content: end;
 `;
-function ProductCard({ product, onRefetch, cartQuantity }) {
+function ProductCard({
+  product,
+  onRefetch,
+  cartQuantity
+}) {
   const handleProductCart = async () => {
     if (product.isCart && product.cartProductId) {
       await deleteCartProduct(product.cartProductId);
@@ -9321,7 +9325,7 @@ function ProductCard({ product, onRefetch, cartQuantity }) {
     alert("장바구니에 담겼습니다.");
     onRefetch();
   };
-  const iconUrl = product.isCart ? "/deleteCartIcon.svg" : "/addCartIcon.svg";
+  const iconUrl = product.isCart ? "./deleteCartIcon.svg" : "./addCartIcon.svg";
   const title = product.isCart ? "빼기" : "담기";
   const className = product.isCart ? css`
         background-color: #fff;
@@ -9329,13 +9333,27 @@ function ProductCard({ product, onRefetch, cartQuantity }) {
         border: 1px solid #000;
       ` : css``;
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(ProductCardContainer, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ImageSection, { src: product.imageUrl, alt: product.name }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      ImageSection,
+      {
+        src: product.imageUrl,
+        alt: product.name
+      }
+    ),
     /* @__PURE__ */ jsxRuntimeExports.jsxs(ContentSection, { children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(ProductName, { children: product.name }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(ProductCategory, { children: product.category }),
       /* @__PURE__ */ jsxRuntimeExports.jsx(ProductPrice, { children: product.price })
     ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ButtonSection, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(CustomButton, { iconUrl, title, onClick: handleProductCart, css: className }) })
+    /* @__PURE__ */ jsxRuntimeExports.jsx(ButtonSection, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+      CustomButton,
+      {
+        iconUrl,
+        title,
+        onClick: handleProductCart,
+        css: className
+      }
+    ) })
   ] });
 }
 const filterByValue = ({ array, compare, value }) => {
@@ -9444,7 +9462,7 @@ function Navbar({ cartQuantity, errorMessage }) {
       /* @__PURE__ */ jsxRuntimeExports.jsx(Logo, { onClick: handleLogoClick, children: "SHOP" }),
       /* @__PURE__ */ jsxRuntimeExports.jsxs(CartIconContainer, { children: [
         /* @__PURE__ */ jsxRuntimeExports.jsx(CartQuantity, { children: cartQuantity }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx(CartIcon, { src: "/cartIcon.svg" })
+        /* @__PURE__ */ jsxRuntimeExports.jsx(CartIcon, { src: "./cartIcon.svg" })
       ] })
     ] }),
     visibleError && /* @__PURE__ */ jsxRuntimeExports.jsx(ErrorToast, { errorMessage: visibleError })
