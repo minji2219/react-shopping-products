@@ -9729,7 +9729,7 @@ function ProductCard({
         formatPrice(product.price),
         "원"
       ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(ProductQuantity, { children: [
+      product.quantity !== void 0 && /* @__PURE__ */ jsxRuntimeExports.jsxs(ProductQuantity, { children: [
         "수량: ",
         product.quantity,
         "개"
