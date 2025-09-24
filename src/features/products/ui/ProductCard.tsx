@@ -1,15 +1,15 @@
-import {css} from '@emotion/react';
+import { css } from '@emotion/react';
 import CustomButton from '../../../shared/ui/CustomButton';
-import {deleteCartProduct} from '../../cart/api/deleteCartProduct';
-import {postCartProduct} from '../../cart/api/postCartProduct';
-import {Product} from '../type/product';
+import { deleteCartProduct } from '../../cart/api/deleteCartProduct';
+import { postCartProduct } from '../../cart/api/postCartProduct';
+import { Product } from '../type/product';
 import * as S from './ProductCard.styles';
-import {useShowError} from '../../../shared/provider/errorProvider';
-import {useState} from 'react';
+import { useState } from 'react';
 import CartCount from '../../cart/ui/CartCount';
-import {formatPrice} from '../../../shared/utils/formatPrice';
-import {useApi} from '../provider/apiProvider';
-import {getCartProduct} from '../../cart/api/getCartProduct';
+import { formatPrice } from '../../../shared/utils/formatPrice';
+import { useApi } from '../provider/apiProvider';
+import { getCartProduct } from '../../cart/api/getCartProduct';
+import { useShowToast } from '../../../shared/provider/Toast';
 
 interface ProductCardProps {
   product: Product;
@@ -17,17 +17,17 @@ interface ProductCardProps {
   cartId: number | undefined;
 }
 
-const MAX_CART_QUANTITY = 50;
+const MAX_CART_QUANTITY = 2;
 
 export default function ProductCard({
   product,
   cartQuantity,
   cartId,
 }: ProductCardProps) {
-  const showError = useShowError();
+  const showError = useShowToast();
   const [isCarting, setIsCarting] = useState(false);
   const [quantity, setQuantity] = useState(1);
-  const {refetch} = useApi(getCartProduct, 'cartItems');
+  const { refetch } = useApi(getCartProduct, 'cartItems');
 
   const handlePutCartClick = async () => {
     if (!isCarting) {
@@ -36,7 +36,7 @@ export default function ProductCard({
     }
 
     if (cartQuantity >= MAX_CART_QUANTITY) {
-      showError?.(
+      showError(
         `장바구니에 담을 수 있는 최대 개수는 ${MAX_CART_QUANTITY}개입니다.`
       );
       return;

@@ -6,7 +6,7 @@ import {
   useEffect,
   useState,
 } from 'react';
-import {useShowError} from '../../../shared/provider/errorProvider';
+import { useShowToast } from '../../../shared/provider/Toast';
 
 type ApiContextType = {
   data: Record<string, unknown>;
@@ -18,24 +18,24 @@ const ApiContext = createContext<ApiContextType>({
   setData: () => {},
 });
 
-export const ApiProvider = ({children}: {children: ReactNode}) => {
+export const ApiProvider = ({ children }: { children: ReactNode }) => {
   const [data, setData] = useState<Record<string, unknown>>({});
   return (
-    <ApiContext.Provider value={{data, setData}}>
+    <ApiContext.Provider value={{ data, setData }}>
       {children}
     </ApiContext.Provider>
   );
 };
 
 export const useApi = <T,>(fetchFn: () => Promise<T>, name: string) => {
-  const {data, setData} = useContext(ApiContext);
+  const { data, setData } = useContext(ApiContext);
   const [isLoading, setIsLoading] = useState(false);
-  const showError = useShowError();
+  const showError = useShowToast();
 
   const requestApi = useCallback(async () => {
     try {
       const result = await fetchFn();
-      setData((prev) => ({...prev, [name]: result}));
+      setData((prev) => ({ ...prev, [name]: result }));
     } catch (err) {
       showError?.('데이터를 가져오는 중 오류가 발생했습니다.');
     } finally {

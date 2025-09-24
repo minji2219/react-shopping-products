@@ -1,14 +1,14 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import CustomButton from '../../../shared/ui/CustomButton';
 import * as S from './CartCard.styles';
 import CartCount from './CartCount';
-import {Product} from '../../products/type/product';
-import {deleteCartProduct} from '../api/deleteCartProduct';
-import {useShowError} from '../../../shared/provider/errorProvider';
-import {useApi} from '../../products/provider/apiProvider';
-import {getCartProduct} from '../api/getCartProduct';
-import {formatPrice} from '../../../shared/utils/formatPrice';
-import {updateCartProduct} from '../api/updateCartProduct';
+import { Product } from '../../products/type/product';
+import { deleteCartProduct } from '../api/deleteCartProduct';
+import { useApi } from '../../products/provider/apiProvider';
+import { getCartProduct } from '../api/getCartProduct';
+import { formatPrice } from '../../../shared/utils/formatPrice';
+import { updateCartProduct } from '../api/updateCartProduct';
+import { useShowToast } from '../../../shared/provider/Toast';
 
 type Props = {
   cartId: number;
@@ -16,11 +16,11 @@ type Props = {
   quantity: number;
 };
 
-export default function CartCard({cartId, product, quantity}: Props) {
+export default function CartCard({ cartId, product, quantity }: Props) {
   const [count, setCount] = useState<number>(quantity);
-  const showError = useShowError();
+  const showError = useShowToast();
 
-  const {refetch} = useApi(getCartProduct, 'cartItems');
+  const { refetch } = useApi(getCartProduct, 'cartItems');
 
   const handlePutCartClick = async () => {
     if (product.quantity < count) {
